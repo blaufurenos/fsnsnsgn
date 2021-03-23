@@ -124,4 +124,4 @@ STOPSIGNAL SIGQUIT
 ENTRYPOINT ["dumb-init"]
 
 # 运行trojan-go
-CMD ["trojan-go", "-conf", "/etc/trojan-go/config.json"]
+CMD ["trojan-go", "-config", "/etc/trojan-go/config.json"]
