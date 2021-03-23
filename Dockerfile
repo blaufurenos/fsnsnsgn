@@ -100,15 +100,17 @@ RUN set -eux \
    && echo ${TZ} > /etc/timezone
 	
 # 拷贝trojan-go
-COPY --from=builder /src/build /usr/bin/
+COPY --from=builder /src/build/trojan-go /usr/bin/trojan-go
 
 # 授予文件权限
 RUN set -eux && \
-    mkdir -p /etc/trojan-go/ && \
-    chmod +x /usr/bin/trojan-go
+    mkdir -p /etc/trojan-go/ /usr/share/trojan-go/ && \
+    chmod +x /usr/bin/trojan-go /usr/share/trojan-go
 
-# 增加配置文件
+# 拷贝配置文件
 COPY --from=builder /src/example/server.json /etc/trojan-go/config.json
+COPY --from=builder /src/build/geoip.dat /usr/share/trojan-go/geoip.dat
+COPY --from=builder /src/build/geosite.dat /usr/share/trojan-go/geosite.dat
 
 # 安装dumb-init
 RUN set -eux \
